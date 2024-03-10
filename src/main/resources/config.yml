@@ -11,7 +11,7 @@ NormalTeleport:
   # Название мира для ртп
   WorldName: "world"
   # Настройка радиуса
-  RadiusMin: 3000
+  RadiusMin: -3000
   RadiusMax: 3000
   # Показывать или нет радиус телепортации в меню
   ShowRadiusInMenu: true

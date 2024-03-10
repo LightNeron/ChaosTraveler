@@ -40,11 +40,18 @@ public class RTPMenu implements Listener {
             if (clickedItem != null && clickedItem.isSimilar(ItemStacks.NormalTeleport(player)) && WorldName != null && Bukkit.getWorld(WorldName) != null) {
                 //Код для рандомной телепортации
 
+//                SecureRandom secureRandom = new SecureRandom();
+//                int getMin = JavaPlugin.getPlugin(ChaosTraveler.class).getConfig().getInt("NormalTeleport.RadiusMin");
+//                int getMax = JavaPlugin.getPlugin(ChaosTraveler.class).getConfig().getInt("NormalTeleport.RadiusMax");
+//                double x = secureRandom.nextDouble(getMin) - secureRandom.nextDouble(getMax);
+//                double z = secureRandom.nextDouble(getMin) - secureRandom.nextDouble(getMax);
+//                double y = player.getWorld().getHighestBlockYAt((int) x, (int) z) + 1;
+
                 SecureRandom secureRandom = new SecureRandom();
                 int getMin = JavaPlugin.getPlugin(ChaosTraveler.class).getConfig().getInt("NormalTeleport.RadiusMin");
                 int getMax = JavaPlugin.getPlugin(ChaosTraveler.class).getConfig().getInt("NormalTeleport.RadiusMax");
-                double x = secureRandom.nextDouble(getMin) - secureRandom.nextDouble(getMax);
-                double z = secureRandom.nextDouble(getMin) - secureRandom.nextDouble(getMax);
+                double x = secureRandom.nextInt(getMax - getMin + 1) + getMin;
+                double z = secureRandom.nextInt(getMax - getMin + 1) + getMin;
                 double y = player.getWorld().getHighestBlockYAt((int) x, (int) z) + 1;
 
                 Location NormalTeleportLocation = new Location(Bukkit.getWorld(WorldName), x, y, z, secureRandom.nextFloat(1), secureRandom.nextFloat(1));
