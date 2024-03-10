@@ -2,8 +2,12 @@ package me.lightneron.chaostraveler.Commands;
 
 import dev.jorel.commandapi.CommandAPICommand;
 import me.lightneron.chaostraveler.ChaosTraveler;
+import me.lightneron.chaostraveler.Exceptions.RadiusValidException;
+import me.lightneron.chaostraveler.Exceptions.WorldValidException;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.Arrays;
 
 public class PluginConfigReload {
     public void reload() {
@@ -16,7 +20,16 @@ public class PluginConfigReload {
                                 player.sendMessage(MiniMessage.miniMessage().deserialize(Prefix + " " + NoPermission));
                             } else {
                                 JavaPlugin.getPlugin(ChaosTraveler.class).reloadConfig();
-                                JavaPlugin.getPlugin(ChaosTraveler.class).CheckRadiusValid();
+                                try {
+                                    JavaPlugin.getPlugin(ChaosTraveler.class).CheckRadiusValid();
+                                } catch (RadiusValidException e) {
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    JavaPlugin.getPlugin(ChaosTraveler.class).CheckWorldValid();
+                                } catch (WorldValidException e) {
+                                    e.printStackTrace();
+                                }
                                 JavaPlugin.getPlugin(ChaosTraveler.class).reloadConfig();
                                 player.sendMessage(MiniMessage.miniMessage().deserialize(Prefix + " <#34ff14>Конфиг успешно перезагружен"));
                             }
