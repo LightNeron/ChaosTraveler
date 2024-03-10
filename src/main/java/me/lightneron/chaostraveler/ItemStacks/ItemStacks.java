@@ -10,6 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ItemStacks {
     public static ItemStack NormalTeleport(Player player) {
@@ -29,7 +30,7 @@ public class ItemStacks {
         }
 
 
-        ItemStack NormalTeleport = new ItemStack(Material.TORCH);
+        ItemStack NormalTeleport = new ItemStack(Objects.requireNonNull(Material.getMaterial(Objects.requireNonNull(JavaPlugin.getPlugin(ChaosTraveler.class).getConfig().getString("NormalTeleport.Item")))));
         ItemMeta NormalTeleportMeta = NormalTeleport.getItemMeta();
         NormalTeleportMeta.displayName(MiniMessage.miniMessage().deserialize("<#55ffff>Обычная телепортация"));
         NormalTeleportMeta.lore(Lore);
