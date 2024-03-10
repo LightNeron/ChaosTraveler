@@ -9,8 +9,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.Arrays;
-
 public final class ChaosTraveler extends JavaPlugin {
     RTPMenuCommand rtpMenuCommand = new RTPMenuCommand();
     PluginConfigReload pluginConfigReload = new PluginConfigReload();

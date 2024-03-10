@@ -7,8 +7,6 @@ import me.lightneron.chaostraveler.Exceptions.WorldValidException;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.Arrays;
-
 public class PluginConfigReload {
     public void reload() {
         new CommandAPICommand("rtp")
