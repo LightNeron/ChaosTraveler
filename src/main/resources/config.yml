@@ -6,6 +6,10 @@ NoPermission: "<#ff050d>У вас нет прав"
 
 # Далее настройка каждого типа телепортации отдельно
 NormalTeleport:
+  # Предмет отображаемый в меню
+  Item: TORCH
+  # Название мира для ртп
+  WorldName: "world"
   # Настройка радиуса
   RadiusMin: 3000
   RadiusMax: 3000
