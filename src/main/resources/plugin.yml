@@ -1,0 +1,4 @@
+name: ChaosTraveler
+version: '${version}'
+main: me.lightneron.chaostraveler.ChaosTraveler
+api-version: '1.18'
