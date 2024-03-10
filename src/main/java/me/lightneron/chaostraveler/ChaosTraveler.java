@@ -2,8 +2,14 @@ package me.lightneron.chaostraveler;
 
 import me.lightneron.chaostraveler.Commands.PluginConfigReload;
 import me.lightneron.chaostraveler.Commands.RTPMenuCommand;
+import me.lightneron.chaostraveler.Exceptions.RadiusValidException;
+import me.lightneron.chaostraveler.Exceptions.WorldValidException;
 import me.lightneron.chaostraveler.Listeners.RTPMenu;
+import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.Arrays;
 
 public final class ChaosTraveler extends JavaPlugin {
     RTPMenuCommand rtpMenuCommand = new RTPMenuCommand();
@@ -17,7 +23,16 @@ public final class ChaosTraveler extends JavaPlugin {
             getDataFolder().mkdirs();
         }
         saveDefaultConfig();
-        CheckRadiusValid();
+        try {
+            CheckRadiusValid();
+        } catch (RadiusValidException e) {
+            e.printStackTrace();
+        }
+        try {
+            CheckWorldValid();
+        } catch (WorldValidException e) {
+            e.printStackTrace();
+        }
         rtpMenuCommand.MenuCommand();
         pluginConfigReload.reload();
         getServer().getPluginManager().registerEvents(new RTPMenu(), this);
@@ -28,13 +43,14 @@ public final class ChaosTraveler extends JavaPlugin {
         // Plugin shutdown logic
     }
 
-    public void CheckRadiusValid() {
-        if (this.getConfig().getInt("NormalTeleport.RadiusMin") > this.getConfig().getInt("NormalTeleport.RadiusMax")) {
-            getLogger().warning("Минимальный радиус не может быть больше чем максимальный");
-            getLogger().warning("Поэтому минимальный и максимальный радиус был сброшен до дефолтных значений");
-            getConfig().set("NormalTeleport.RadiusMin", 3000);
-            getConfig().set("NormalTeleport.RadiusMax", 3000);
-            saveConfig();
-        }
+    public void CheckRadiusValid() throws RadiusValidException {
+        if (this.getConfig().getInt("NormalTeleport.RadiusMin") > this.getConfig().getInt("NormalTeleport.RadiusMax")) throw new RadiusValidException();
+    }
+
+    public void CheckWorldValid() throws WorldValidException {
+        String WorldName = this.getConfig().getString("NormalTeleport.WorldName");
+        assert WorldName != null;
+        World world = Bukkit.getWorld(WorldName);
+        if (world == null) throw new WorldValidException();
     }
 }
