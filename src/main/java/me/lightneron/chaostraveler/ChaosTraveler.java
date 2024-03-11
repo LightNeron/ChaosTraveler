@@ -5,6 +5,7 @@ import me.lightneron.chaostraveler.Commands.RTPMenuCommand;
 import me.lightneron.chaostraveler.Exceptions.RadiusValidException;
 import me.lightneron.chaostraveler.Exceptions.WorldValidException;
 import me.lightneron.chaostraveler.Listeners.RTPMenu;
+import me.lightneron.chaostraveler.PlaceHolders.CooldownPlaceholder;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -34,6 +35,11 @@ public final class ChaosTraveler extends JavaPlugin {
         rtpMenuCommand.MenuCommand();
         pluginConfigReload.reload();
         getServer().getPluginManager().registerEvents(new RTPMenu(), this);
+
+        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) { //
+            new CooldownPlaceholder().register(); //
+        }
+
     }
 
     @Override
