@@ -1,8 +1,15 @@
+# Плейсхолдеры:
+# %ChaosTraveler_RTPCommandCooldown%
+#
+#
+#
+
 # Префикс плагина в формате MiniMessage -> https://webui.advntr.dev/
 # Все сообщения в плагине в формате MiniMessage
 prefix: "<#2aaa9f>[<#5e5e5e>Chaos<#00aa00>Traveler<#2aaa9f>]"
 # Сообщение когда у игрока нет прав
 NoPermission: "<#ff050d>У вас нет прав"
+CooldownMessage: "<#ff050d>Чтобы снова использовать эту команду подождите %ChaosTraveler_RTPCommandCooldown% секунд"
 
 # Далее настройка каждого типа телепортации отдельно
 NormalTeleport:
