@@ -23,30 +23,19 @@ public class RTPMenu implements Listener {
 
         Inventory Menu = Bukkit.createInventory(null, 9, MenuName);
         Menu.setItem(0, ItemStacks.NormalTeleport(player));
+        if (player.hasPermission("ChaosTraveler.reload")) {
+            Menu.setItem(8, ItemStacks.ReloadConfig());
+        }
         return Menu;
     }
 
     @EventHandler
     public void RTPMenuListener(InventoryClickEvent event) {
-        //Получаем item по которому нажали
-
         ItemStack clickedItem = event.getCurrentItem();
         Player player = (Player) event.getWhoClicked();
-        //Проверяем название меню в формате Component
         if (event.getView().title().equals(MenuName)) {
-                //Отменяем перенос предмета и тд
                 event.setCancelled(true);
-            //Проверяем по какому ItemStack нажали
-            if (clickedItem != null && clickedItem.isSimilar(ItemStacks.NormalTeleport(player)) && WorldName != null && Bukkit.getWorld(WorldName) != null) {
-                //Код для рандомной телепортации
-
-//                SecureRandom secureRandom = new SecureRandom();
-//                int getMin = JavaPlugin.getPlugin(ChaosTraveler.class).getConfig().getInt("NormalTeleport.RadiusMin");
-//                int getMax = JavaPlugin.getPlugin(ChaosTraveler.class).getConfig().getInt("NormalTeleport.RadiusMax");
-//                double x = secureRandom.nextDouble(getMin) - secureRandom.nextDouble(getMax);
-//                double z = secureRandom.nextDouble(getMin) - secureRandom.nextDouble(getMax);
-//                double y = player.getWorld().getHighestBlockYAt((int) x, (int) z) + 1;
-
+            if (clickedItem != null && clickedItem.isSimilar(ItemStacks.NormalTeleport(player)) && WorldName != null && Bukkit.getWorld(WorldName) != null && player.hasPermission("ChaosTraveler.NormalTeleport")) {
                 SecureRandom secureRandom = new SecureRandom();
                 int getMin = JavaPlugin.getPlugin(ChaosTraveler.class).getConfig().getInt("NormalTeleport.RadiusMin");
                 int getMax = JavaPlugin.getPlugin(ChaosTraveler.class).getConfig().getInt("NormalTeleport.RadiusMax");
@@ -57,7 +46,7 @@ public class RTPMenu implements Listener {
                 Location NormalTeleportLocation = new Location(Bukkit.getWorld(WorldName), x, y, z, secureRandom.nextFloat(1), secureRandom.nextFloat(1));
                 player.sendMessage(MiniMessage.miniMessage().deserialize("<#0dff41>Телепортация..."));
                 player.teleport(NormalTeleportLocation);
-
+                player.closeInventory();
                 String Xformat = String.format("X  %.2f", x);
                 String Yformat = String.format(" Y  %.2f", y);
                 String Zformat = String.format(" Z  %.2f", z);
@@ -66,9 +55,15 @@ public class RTPMenu implements Listener {
                 + Xformat
                 + Yformat
                 + Zformat));
-
+            } else {
+                String Prefix = JavaPlugin.getPlugin(ChaosTraveler.class).getConfig().getString("prefix");
+                String NoPermission = JavaPlugin.getPlugin(ChaosTraveler.class).getConfig().getString("NoPermission");
+                player.sendMessage(MiniMessage.miniMessage().deserialize(Prefix + " " + NoPermission));
             }
-
+            if (clickedItem != null && clickedItem.isSimilar(ItemStacks.ReloadConfig())) {
+                event.setCancelled(true);
+                player.performCommand("rtp reload");
+            }
         }
     }
 }
