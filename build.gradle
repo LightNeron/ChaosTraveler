@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'me.LightNeron'
-version = '0.3.3'
+version = '0.4.3'
 compileJava.options.encoding = 'UTF-8'
 compileTestJava.options.encoding = 'UTF-8'
 repositories {
@@ -23,12 +23,16 @@ repositories {
     maven {
         url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/'
     }
+    maven {
+        url = 'https://repo.rosewooddev.io/repository/public/'
+    }
 }
 
 dependencies {
     compileOnly "io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT"
     compileOnly "dev.jorel:commandapi-bukkit-core:9.3.0"
     compileOnly 'me.clip:placeholderapi:2.11.5'
+    compileOnly 'org.black_ixx:playerpoints:3.2.6'
 }
 
 def targetJavaVersion = 17
